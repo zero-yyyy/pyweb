@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Login Index</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        
+        .background-container {
+            background-image: url("{{ url_for('static', filename='pic/111.jpg') }}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white; /* 设置文字颜色为白色，以确保内容可见 */
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            border-radius: 5px;
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .logout-button:hover {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .searchinfo input[type='text'] {
+            width: 300px;
+            height: 20px;
+        }
+
+        h1 {
+            margin-top: -500px; /* 将标题文字向上移动 20px */
+        }
+
+        .hello {
+            display: block;
+            text-decoration: none;
+            background-color: rgba(48, 100, 187, 0.9); /* 设置半透明背景色 */
+            color: #fff;
+            width: 200px;
+            height: 80px;
+            text-align: center;
+            line-height: 80px;
+            margin-right: 1200px; 
+        }
+
+        .hello:hover {
+            background-color: #608dd9;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <h1  style="margin-left: -40px">welcome&nbsp;<span style="color: red;">{{username}}</span></h1>
+        <form action="/user/usersearch" class="searchinfo">
+            <label style="margin-left: -120px; color:red">搜索图书信息：</label>
+            <input type="text" name="keyword" placeholder="输入关键词搜索">
+            <input type="hidden" name="fixed_data" value="a">
+            <button type="submit">搜索</button>
+        </form>
+        <a href="/user/userinfo" class="hello">用户信息</a>
+        <a href="/user/borrowinfo" class="hello">借还图书信息</a>
+        <a href="/logout">
+            <button class="logout-button">退出登录</button>
+        </a>
+    </div>
+</body>
+</html>

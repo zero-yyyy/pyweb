@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        
+        .background-container {
+            background-image: url("{{ url_for('static', filename='pic/111.jpg') }}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white; /* 设置文字颜色为白色，以确保内容可见 */
+        }
+
+        h2 {
+            margin-top: -500px; /* 将标题文字向上移动 20px */
+        }
+        
+    
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <h2 style="color:brown;">登录</h2>
+        <form action="/login" method="POST">
+            <label for="username">用户名:</label><br>
+            <input type="text" id="username" name="username" required><br><br>
+            
+            <label for="password">密  码:</label><br>
+            <input type="password" id="password" name="password" required><br><br>
+            
+            <input type="submit" value="登录">
+            <button type="button" onclick="redirectTo('/register')">注册</button>
+            <button type="button" onclick="redirectTo('/index')">返回</button>
+        </form>
+    </div>
+
+    <script>
+        function redirectTo(url) {
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>

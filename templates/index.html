@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("{{ url_for('static', filename='pic/111.jpg') }}");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .mains {
+            color: black;
+            height: 100vh; 
+            width: 100vw; 
+            background: none; 
+            position: relative;
+        }
+
+        /* .mains {
+            color: black;
+            height: 700px;
+            width: 1425px;
+            background-image: url("{{ url_for('static', filename='pic/111.jpg') }}");
+            background-repeat: repeat-y;
+            background-position: center center;
+            position: relative;
+            background-size: 100% 100%;
+        } */
+
+        a {
+            display: block;
+            text-decoration: none;
+            background-color: #3064bb;
+            color: #fff;
+            width: 200px;
+            height: 80px;
+            text-align: center;
+            line-height: 80px;
+        }
+
+        a:hover {
+            background-color: #608dd9;
+        }
+
+        .search-box {
+            position: absolute;
+            top: 0;
+            right: 220px; /* 调整搜索框距离右边的距离 */
+            display: none;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .search-box input[type="text"] {
+            width: 150px;
+            padding: 5px;
+            margin-right: 5px;
+        }
+
+        .search-box button {
+            padding: 5px 10px;
+            background-color: #3064bb;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+        }
+    </style>
+
+    <script>
+        // window.onload = function() {
+        //     const urlParams = new URLSearchParams(window.location.search);
+        //     if (urlParams.has('login_error')) {
+        //         alert('用户名或密码错误，请重新登录');
+        //     }
+        // };
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchLink = document.querySelector(".search-link");
+            const searchBox = document.querySelector(".search-box");
+
+            searchLink.addEventListener("click", function(event) {
+                event.preventDefault();
+                searchBox.style.display = (searchBox.style.display === "block") ? "none" : "block";
+            });
+
+            document.addEventListener("click", function(event) {
+                if (!searchLink.contains(event.target) && !searchBox.contains(event.target)) {
+                    searchBox.style.display = "none";
+                }
+            });
+        });
+
+    </script>
+</head>
+<body>
+
+    <div class="mains">
+        <a href="#" class="search-link" style="background-color: #000080;">搜索图书信息</a>
+        <div class="search-box">
+            <form action="/search">
+                <input type="text" name="keyword" placeholder="输入关键词搜索">
+                <input type="hidden" name="fixed_data" value="a">
+                <button type="submit">搜索</button>
+            </form>
+        </div>
+        <a href="bookinfo">图书信息</a>
+        <a href="register">注册</a>
+        <a href="login">登录</a>
+    </div>
+
+</body>
+</html>

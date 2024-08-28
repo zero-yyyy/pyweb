@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Information</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        
+        .background-container {
+            background-image: url("{{ url_for('static', filename='pic/111.jpg') }}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* 将内容上对齐 */
+            flex-direction: column;
+            color: white; /* 设置文字颜色为白色，以确保内容可见 */
+            padding-top: 50px; /* 增加顶部内边距 */
+        }
+        
+        h1 {
+            margin-top: -400px; /* 将标题文字向上移动 20px */
+        }
+
+        table {
+            margin-top: 20px; /* 设置表格与顶部的间距 */
+            color: inherit; /* 继承文字颜色，保持可见性 */
+            width: 80%; /* 设置表格宽度为页面宽度的80% */
+            max-width: 800px; /* 设置表格最大宽度 */
+            background-color: rgba(255, 255, 255, 0.9); /* 设置表格背景颜色为白色，透明度为0.9 */
+            border-collapse: collapse; /* 边框重叠处理 */
+        }
+
+        tr {
+            background-color: white;
+            color: black;
+        }
+
+        .return-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            border-radius: 5px;
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .return-button:hover {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <a href="#" onclick="history.go(-1)" class="return-button">返回</a>
+        <h1 style="color: brown;">信息</h1>
+        <table border="1">
+            <thead>
+                <tr>
+                    {% for field_name in field_names %}
+                    <th>{{ field_name_mapping[field_name] }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% if loginstatus == 0 %}
+                    {% for row in result[:10] %}
+                        <tr>
+                            {% for column in row %}
+                                <td>{{ column }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    {% for row in result %}
+                        <tr>
+                            {% for column in row %}
+                                <td>{{ column }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            var returnButton = document.querySelector('.return-button');
+            var scrollPosition = window.scrollY;
+
+            // Adjust the top position of the return button based on scroll position
+            returnButton.style.top = (scrollPosition + 10) + 'px'; // You can adjust the offset as needed
+        });
+    </script>
+    
+</body>
+</html>

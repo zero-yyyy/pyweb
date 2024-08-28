@@ -1,0 +1,70 @@
+
+UPDATE bookinfo SET bookid = '11105', bookname = 'python', author = 'aaa', remaining = '1' WHERE id = '13'
+UPDATE bookinfo SET bookid = '11106', bookname = 'python', author = 'aaa', remaining = '1' WHERE id = '13'
+UPDATE bookinfo SET bookid = '11102', bookname = 'PHP入门', author = 'hhh', remaining = '0' WHERE id = '1'
+UPDATE users SET username = '11', password = '11' WHERE id = '14'
+UPDATE users SET username = '1', password = '1' WHERE id = '14'
+UPDATE users SET username = '11', password = '11' WHERE id = '14'
+UPDATE users SET username = '1', password = '1' WHERE id = '14'
+INSERT INTO bookinfo (bookid, bookname, author, remaining) VALUES ('11109', '好好学习', 'ttt', '3');
+INSERT INTO admins (username, password, role) VALUES ('admins', 'admins', 1);
+UPDATE bookinfo SET bookid = '11101', bookname = 'PHP入门', author = 'hhh', remaining = '0' WHERE id = '1'
+UPDATE bookinfo SET remaining = remaining - 1 WHERE bookid = '11104' AND remaining > 0;
+INSERT INTO usersborrow (username, borrow) VALUES (1, '11104');
+UPDATE bookinfo SET remaining = remaining - 1 WHERE bookid = '11105' AND remaining > 0;
+INSERT INTO usersborrow (username, borrow) VALUES (1, '11105');
+DELETE FROM usersborrow WHERE username = '1' AND borrow = (('11104'));
+UPDATE bookinfo SET remaining = remaining + 1 WHERE bookid = ('11104') ;
+DELETE FROM usersborrow WHERE username = '1' AND borrow = (('11101'));
+UPDATE bookinfo SET remaining = remaining + 1 WHERE bookid = ('11101') ;
+DELETE FROM usersborrow WHERE username = '1' AND borrow = (('11105'));
+UPDATE bookinfo SET remaining = remaining + 1 WHERE bookid = ('11105') ;
+UPDATE bookinfo SET remaining = remaining - 1 WHERE bookid = '11101' AND remaining > 0;
+INSERT INTO usersborrow (username, borrow) VALUES (1, '11101');
+DELETE FROM usersborrow WHERE username = '1' AND borrow = (('11101'));
+UPDATE bookinfo SET remaining = remaining + 1 WHERE bookid = ('11101') ;
+UPDATE bookinfo SET remaining = remaining - 1 WHERE bookid = '11102' AND remaining > 0;
+INSERT INTO usersborrow (username, borrow) VALUES (666, '11102');
+UPDATE bookinfo SET remaining = remaining - 1 WHERE bookid = '11105' AND remaining > 0;
+INSERT INTO usersborrow (username, borrow) VALUES (666, '11105');
+UPDATE bookinfo SET remaining = remaining - 1 WHERE bookid = '11108' AND remaining > 0;
+INSERT INTO usersborrow (username, borrow) VALUES (666, '11108');
+DELETE FROM usersborrow WHERE username = '666' AND borrow = (('11108'));
+UPDATE bookinfo SET remaining = remaining + 1 WHERE bookid = ('11108') ;
+DELETE FROM usersborrow WHERE username = '666' AND borrow = (('11105'));
+UPDATE bookinfo SET remaining = remaining + 1 WHERE bookid = ('11105') ;
+DELETE FROM usersborrow WHERE username = '666' AND borrow = (('11102'));
+UPDATE bookinfo SET remaining = remaining + 1 WHERE bookid = ('11102') ;
+UPDATE bookinfo SET remaining = remaining - 1 WHERE bookid = '11101' AND remaining > 0;
+INSERT INTO usersborrow (username, borrow) VALUES (666, '11101');
+DELETE FROM usersborrow WHERE username = '666' AND borrow = (('11101'));
+UPDATE bookinfo SET remaining = remaining + 1 WHERE bookid = ('11101') ;
+UPDATE bookinfo SET remaining = remaining - 1 WHERE bookid = '11101' AND remaining > 0;
+INSERT INTO usersborrow (username, borrow) VALUES (1, '11101');
+UPDATE bookinfo SET remaining = remaining - 1 WHERE bookid = '11103' AND remaining > 0;
+INSERT INTO usersborrow (username, borrow) VALUES (1, '11103');
+UPDATE bookinfo SET remaining = remaining - 1 WHERE bookid = '11106' AND remaining > 0;
+INSERT INTO usersborrow (username, borrow) VALUES (1, '11106');
+DELETE FROM usersborrow WHERE username = '1' AND borrow = (('11103'));
+UPDATE bookinfo SET remaining = remaining + 1 WHERE bookid = ('11103') ;
+DELETE FROM usersborrow WHERE username = '1' AND borrow = (('11106'));
+UPDATE bookinfo SET remaining = remaining + 1 WHERE bookid = ('11106') ;
+DELETE FROM usersborrow WHERE username = '1' AND borrow = (('11101'));
+UPDATE bookinfo SET remaining = remaining + 1 WHERE bookid = ('11101') ;
+DELETE FROM bookinfo WHERE bookid = '11112';
+UPDATE bookinfo SET remaining = remaining - 1 WHERE bookid = '11101' AND remaining > 0;
+INSERT INTO usersborrow (username, borrow) VALUES (1, '11101');
+UPDATE bookinfo SET remaining = remaining - 1 WHERE bookid = '11102' AND remaining > 0;
+INSERT INTO usersborrow (username, borrow) VALUES (1, '11102');
+UPDATE bookinfo SET remaining = remaining - 1 WHERE bookid = '11103' AND remaining > 0;
+INSERT INTO usersborrow (username, borrow) VALUES (1, '11103');
+DELETE FROM usersborrow WHERE username = '1' AND borrow = (('11102'));
+UPDATE bookinfo SET remaining = remaining + 1 WHERE bookid = ('11102') ;
+DELETE FROM usersborrow WHERE username = '1' AND borrow = (('11101'));
+UPDATE bookinfo SET remaining = remaining + 1 WHERE bookid = ('11101') ;
+DELETE FROM usersborrow WHERE username = '1' AND borrow = (('11103'));
+UPDATE bookinfo SET remaining = remaining + 1 WHERE bookid = ('11103') ;
+DELETE FROM bookinfo WHERE bookid = '11111';
+UPDATE bookinfo SET bookid = '11122', bookname = 'PHP入门', author = 'aaa', remaining = '5' WHERE id = '1'
+INSERT INTO bookinfo (bookid, bookname, author, remaining) VALUES ('222222', '1', '2', '1');
+DELETE FROM users WHERE username = '666';

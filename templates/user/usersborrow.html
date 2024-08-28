@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Information</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        
+        .background-container {
+            background-image: url("{{ url_for('static', filename='pic/111.jpg') }}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* 将内容上对齐 */
+            flex-direction: column;
+            color: white; /* 设置文字颜色为白色，以确保内容可见 */
+            padding-top: 50px; /* 增加顶部内边距 */
+        }
+
+        /* 将标题文字向上移动 20px */
+        h1 {
+            margin-top: -40px; 
+        }
+
+        table {
+            margin-top: 20px; /* 设置表格与顶部的间距 */
+            color: inherit; /* 继承文字颜色，保持可见性 */
+            width: 80%; /* 设置表格宽度为页面宽度的80% */
+            max-width: 800px; /* 设置表格最大宽度 */
+            background-color: rgba(255, 255, 255, 0.9); /* 设置表格背景颜色为白色，透明度为0.9 */
+            border-collapse: collapse; /* 边框重叠处理 */
+        }
+
+        tr {
+            background-color: white;
+            color: black;
+        }
+
+        .return-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            border-radius: 5px;
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .return-button:hover {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .searchinfo input[type='text'] {
+            width: 300px;
+            height: 20px;
+        }
+
+        .borrow-form {
+            display: inline-block; /* 将表单放在一行 */
+            margin-right: -40px; /* 设置距离左边界 20px */
+        }
+
+        .borrow-form input[type='hidden'] {
+            display: none; /* 隐藏输入框 */
+        }
+
+        .borrow-button {
+            background-color: #4CAF50; /* 绿色按钮 */
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .borrow-button:hover {
+            background-color: #45a049; /* 深绿色按钮 */
+        }
+
+        .break-form {
+            display: inline-block; /* 将表单放在一行 */
+            margin-right: -40px; /* 设置距离左边界 20px */
+        }
+
+        .break-form input[type='hidden'] {
+            display: none; /* 隐藏输入框 */
+        }
+
+        .break-button {
+            background-color: #ADD8E6; /* 蓝色按钮 */
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .break-button:hover {
+            background-color: #0000FF; /* 深蓝色按钮 */
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <p>
+        <a href="/user/userlogin" class="return-button">退出当前界面</a>
+        <script>
+            var messages = "{{ messages }}";
+            if(messages) {
+                alert(messages);
+            }
+        </script>
+        <!-- <script>alert("Hello! This is an alert dialog.");</script> -->
+        <h1 style="color: brown;">信息</h1>
+
+        <table border="1" >
+            <tbody>
+                <tr style="color: red;">
+                    <td>用户名：</td>
+                    <td>{{username}}</td>
+                </tr>
+                <tr style="color: red;">
+                    <td>借用书本数量：</td>
+                    <td>{{book_number}}本</td>
+                </tr>
+                <tr style="color: red;">
+                    <td>借用的书本：</td>
+                    {% for i in bookid %}
+                    <td>{{i[0]}}
+                        <form action="/user/breakbook" method="POST" class="break-form" >
+                            <input type="hidden" name="bookname" value="{{ i[0] }}"> <!-- 将书号作为隐藏的输入 -->
+                            <button type="submit" class="break-button">归还</button>
+                        </form>
+                    </td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+        <form action="/user/borrowinfo" method="POST" class="searchinfo">
+            <label style="margin-left: -120px; color:red">搜索图书信息：</label>
+            <input type="text" name="keyword" placeholder="输入关键词搜索">
+            <button type="submit">搜索</button>
+        </form>
+
+        <table border="1">
+            <thead>
+                <tr>
+                    {% for field_name in field_names %}
+                    <th>{{ field_name_mapping[field_name] }}</th>
+                    {% endfor %}
+                    <th>借阅</th> <!-- 添加一个表头 -->
+                </tr>
+            </thead>
+            <tbody>
+                {% if loginstatus == 0 %}
+                    {% for row in result[:10] %}
+                        <tr>
+                            {% for column in row %}
+                                <td>{{ column }}</td>
+                            {% endfor %}
+                            <td>
+                                <!-- 添加表单 -->
+                                <form action="/user/borrowbook" method="POST" class="borrow-form">
+                                    <input type="hidden" name="bookid" value="{{ row[1] }}"> <!-- bookid传递 -->
+                                    <!-- <input type="hidden" name="booklens" value="{{ username }}">  -->
+                                    <button type="submit" class="borrow-button">借阅</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    {% for row in result %}
+                        <tr>
+                            {% for column in row %}
+                                <td>{{ column }}</td>
+                            {% endfor %}
+                            <td>
+                                <!-- 添加表单 -->
+                                <form action="/user/borrowbook" method="POST" class="borrow-form" >
+                                    <input type="hidden" name="bookid" value="{{ row[1] }}"> <!-- 将书号作为隐藏的输入 -->
+                                    <button type="submit" class="borrow-button">借阅</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 滚轮位置改变 -->
+    <script>
+        window.addEventListener('scroll', function() {
+            var returnButton = document.querySelector('.return-button');
+            var scrollPosition = window.scrollY;
+
+            // Adjust the top position of the return button based on scroll position
+            returnButton.style.top = (scrollPosition + 10) + 'px'; // You can adjust the offset as needed
+        });
+
+    </script>
+</body>
+</html>

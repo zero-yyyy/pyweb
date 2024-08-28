@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Login Index</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        
+        .background-container {
+            background-image: url("{{ url_for('static', filename='pic/111.jpg') }}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* 将内容上对齐 */
+            flex-direction: column;
+            color: white; /* 设置文字颜色为白色，以确保内容可见 */
+            padding-top: 50px; /* 增加顶部内边距 */
+        }
+        
+        h1 {
+            margin-top: -400px; /* 将标题文字向上移动 20px */
+        }
+
+        table {
+            /* margin-top: -150px; 设置表格与顶部的间距 */
+            color: inherit; /* 继承文字颜色，保持可见性 */
+            width: 80%; /* 设置表格宽度为页面宽度的80% */
+            max-width: 800px; /* 设置表格最大宽度 */
+            background-color: rgba(255, 255, 255, 0.9); /* 设置表格背景颜色为白色，透明度为0.9 */
+            border-collapse: collapse; /* 边框重叠处理 */
+        }
+
+        tr {
+            background-color: white;
+            color: black;
+        }
+
+        .edit-form {
+            display: none; /* Initially hide the edit form */
+        }
+
+        .return-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            border-radius: 5px;
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .return-button:hover {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <h1  style="margin-left: -40px">welcome&nbsp;<span style="color: red;">{{ username }}</span>&nbsp;管理员</h1>
+        <a href="#" onclick="history.go(-1)" class="return-button">返回</a>
+        <table border="1">
+            <form class="edit-form" action="/admins/logins/adminschange" method="POST">
+                <tbody>
+                    {% for field_name, value in formatted_data[1:] %}
+                    <tr>
+                        <td>{{ field_name_mapping[field_name] }}: </td>
+                        <td>
+                            <!-- <span class="data-value">{{ value }}</span> -->
+                            <input type="hidden" name="id" value="{{ formatted_data[0][1] }}">
+                            <input type="text" name="{{ field_name }}" value="{{ value }}"> 
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit">提交按钮</button>
+        </form>
+            
+    </div>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            var returnButton = document.querySelector('.return-button');
+            var scrollPosition = window.scrollY;
+
+            // Adjust the top position of the return button based on scroll position
+            returnButton.style.top = (scrollPosition + 10) + 'px'; // You can adjust the offset as needed
+        });
+    </script>
+
+</body>
+</html>
